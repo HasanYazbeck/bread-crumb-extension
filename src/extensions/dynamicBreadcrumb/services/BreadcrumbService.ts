@@ -20,13 +20,18 @@ export class BreadcrumbService {
   public getBreadcrumbForCurrentPage(listId: string, locale: ILocaleContext): Promise<IBreadcrumbItem[]> {
     const select: string = 'Id,Title,TitleEN,TitleAR,Url,ParentId,DisplayOrder,IsActive,OpenInNewTab,Icon';
     const requestUrl: string = this._webUrl + "/_api/web/lists(guid'" + listId +
-      "')/items?$select=" + select + '&$filter=IsActive eq 1&$orderby=DisplayOrder asc,Id asc';
+      "')/items?$select=" + select + '&$orderby=DisplayOrder asc,Id asc';
 
     return this._spHttpClient.get(requestUrl, SPHttpClient.configurations.v1)
       .then((response) => this._readResponse(response))
       .then((payload: ISharePointCollectionResponse) => {
         const rawItems: any[] = payload.value || (payload.d && payload.d.results) || [];
-        const items: IBreadcrumbItem[] = rawItems.map((raw: any) => this._toItem(raw));
+        // Do not filter IsActive in OData. Existing rows can have a null value when
+        // the column was added after the row was created; null is intentionally
+        // treated as active by _toItem. An OData filter would hide them before
+        // that compatibility rule can be evaluated.
+        const items: IBreadcrumbItem[] = rawItems.map((raw: any) => this._toItem(raw))
+          .filter((item: IBreadcrumbItem) => item.isActive);
         return this._resolveCurrentPath(items, locale);
       });
   }
@@ -122,13 +127,23 @@ export class BreadcrumbService {
   }
 
   private _normaliseUrl(value: string): string {
-    if (!value) {
+    const rawValue: string = (value || '').replace(/^\s+|\s+$/g, '');
+    if (!rawValue) {
       return '';
     }
 
     const anchor: HTMLAnchorElement = document.createElement('a');
-    anchor.href = value;
-    let path: string = anchor.pathname || value;
+    // Authors commonly enter "SitePages/Page.aspx" in a navigation list. A
+    // browser resolves that relative to the current page, which makes a match
+    // depend on where the component is rendered. Resolve relative URLs from the
+    // current web instead. Absolute and server-relative URLs keep their meaning.
+    if (/^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(rawValue) || rawValue.charAt(0) === '/') {
+      anchor.href = rawValue;
+    } else {
+      anchor.href = this._webUrl.replace(/\/+$/, '') + '/' + rawValue.replace(/^\.?(?:\/|\\)/, '');
+    }
+
+    let path: string = anchor.pathname || rawValue;
     path = path.replace(/[?#].*$/, '').replace(/\/+$/, '');
     return (path || '/').toLowerCase();
   }
