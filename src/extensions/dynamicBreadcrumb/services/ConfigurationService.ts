@@ -133,7 +133,11 @@ export class ConfigurationService {
         '/items?$select=Id,Title&$top=1')
         .then((payload: any) => ({ list: list, existing: this._collection(payload)[0] })))
       .then((result: { list: ISharePointList; existing: any }) => {
+        if (!result.list.ListItemEntityTypeFullName) {
+          throw new Error('SharePoint did not return the configuration list item entity type.');
+        }
         const body: any = {
+          __metadata: { type: result.list.ListItemEntityTypeFullName },
           Title: 'DynamicBreadcrumb',
           NavigationListId: source.id,
           NavigationListTitle: source.title
