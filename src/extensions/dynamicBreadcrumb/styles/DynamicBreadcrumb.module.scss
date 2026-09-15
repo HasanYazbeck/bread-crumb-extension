@@ -1,0 +1,180 @@
+.host {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.empty {
+  display: none;
+}
+
+.root {
+  align-items: center;
+  background-color: "[theme:neutralLighter, default: #f8f9fa]";
+  border: 1px solid "[theme:neutralLight, default: #e1dfdd]";
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+  box-sizing: border-box;
+  color: "[theme:neutralPrimary, default: #323130]";
+  display: flex;
+  margin: 8px 16px;
+  min-height: 42px;
+  padding: 4px 8px 4px 14px;
+}
+
+.list {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.item,
+.separator,
+.overflow {
+  align-items: center;
+  display: inline-flex;
+  line-height: 32px;
+  margin: 0;
+}
+
+.item {
+  max-width: 20rem;
+  min-width: 0;
+}
+
+.link,
+.currentItem {
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: inline-flex;
+  font-size: 14px;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0 5px;
+  text-decoration: none;
+}
+
+.link {
+  color: "[theme:themePrimary, default: #0078d4]";
+}
+
+.link:hover {
+  background-color: "[theme:themeLighterAlt, default: #eff6fc]";
+  color: "[theme:themeDarker, default: #004578]";
+  text-decoration: underline;
+}
+
+.link:focus,
+.configureButton:focus {
+  outline: 2px solid "[theme:themePrimary, default: #0078d4]";
+  outline-offset: 1px;
+}
+
+.currentItem {
+  color: "[theme:neutralPrimary, default: #323130]";
+  font-weight: 600;
+}
+
+.link span,
+.currentItem span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemIcon {
+  color: "[theme:themePrimary, default: #0078d4]";
+  flex: 0 0 auto;
+  font-size: 14px;
+  margin: 0 6px 0 2px;
+}
+
+.separator {
+  color: "[theme:neutralTertiary, default: #a19f9d]";
+  font-size: 12px;
+  padding: 0 2px;
+}
+
+.overflow {
+  padding: 0 1px;
+}
+
+.configureButton {
+  color: "[theme:neutralSecondary, default: #605e5c]";
+  flex: 0 0 auto;
+  margin: 0 0 0 4px;
+}
+
+.setupTools {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 16px;
+}
+
+.setupMessage {
+  color: "[theme:neutralSecondary, default: #605e5c]";
+  font-size: 13px;
+  margin: 0 8px;
+}
+
+.configurationDialog {
+  min-width: 320px;
+}
+
+.fieldHelp {
+  color: "[theme:neutralSecondary, default: #605e5c]";
+  font-size: 12px;
+  line-height: 1.45;
+  margin: 8px 0 16px;
+}
+
+.dialogActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.dialogError,
+.dialogConfirmation {
+  border-radius: 2px;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-top: 12px;
+  padding: 8px 10px;
+}
+
+.dialogError {
+  background-color: "[theme:errorBackground, default: #fde7e9]";
+  color: "[theme:errorText, default: #a4262c]";
+}
+
+.dialogConfirmation {
+  background-color: "[theme:successBackground, default: #dff6dd]";
+  color: "[theme:successText, default: #107c10]";
+}
+
+@media screen and (max-width: 640px) {
+  .root {
+    margin: 6px 8px;
+    padding-left: 6px;
+  }
+
+  .item {
+    max-width: 8.5rem;
+  }
+
+  .link,
+  .currentItem {
+    font-size: 13px;
+  }
+
+  .configurationDialog {
+    min-width: 0;
+  }
+}

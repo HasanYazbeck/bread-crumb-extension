@@ -1,0 +1,29 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/core-build/serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://binarygatetech.sharepoint.com/sites/BinaryGateTech/SitePages/Home.aspx",
+      "customActions": {
+        "dbf24974-a827-4696-a647-b180de8c712a": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "testMessage": "Test message"
+          }
+        }
+      }
+    },
+    "dynamicBreadcrumb": {
+      "pageUrl": "https://binarygatetech.sharepoint.com/sites/BinaryGateTech/SitePages/Home.aspx",
+      "customActions": {
+        "dbf24974-a827-4696-a647-b180de8c712a": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "testMessage": "Test message"
+          }
+        }
+      }
+    }
+  }
+}

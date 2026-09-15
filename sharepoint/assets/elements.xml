@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <CustomAction
+        Title="DynamicBreadcrumb"
+        Location="ClientSideExtension.ApplicationCustomizer"
+        ClientSideComponentId="dbf24974-a827-4696-a647-b180de8c712a"
+        ClientSideComponentProperties="{&quot;configurationListTitle&quot;:&quot;Breadcrumb Configuration&quot;}">
+    </CustomAction>
+</Elements>

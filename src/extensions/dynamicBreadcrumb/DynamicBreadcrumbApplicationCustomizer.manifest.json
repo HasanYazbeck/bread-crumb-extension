@@ -1,0 +1,14 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-extension-manifest.schema.json",
+
+  "id": "dbf24974-a827-4696-a647-b180de8c712a",
+  "alias": "DynamicBreadcrumbApplicationCustomizer",
+  "componentType": "Extension",
+  "extensionType": "ApplicationCustomizer",
+
+  // The "*" signifies that the version should be taken from the package.json
+  "version": "*",
+  "manifestVersion": 2,
+
+  "requiresCustomScript": false
+}
