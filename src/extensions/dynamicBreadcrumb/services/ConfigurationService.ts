@@ -234,7 +234,7 @@ export class ConfigurationService {
     return [
       this._textField('TitleEN'),
       this._textField('TitleAR'),
-      this._field('Url', 'URL', 11, undefined, 0),
+      this._field('Url', 'URL', 11),
       this._field('ParentId', 'Number', 9, 0),
       this._field('DisplayOrder', 'Number', 9, '0'),
       this._field('IsActive', 'Boolean', 8, '1'),
@@ -252,8 +252,7 @@ export class ConfigurationService {
     name: string,
     type: string,
     fieldTypeKind: number,
-    defaultValue?: string | number,
-    displayFormat?: number): IFieldDefinition {
+    defaultValue?: string | number): IFieldDefinition {
     const payload: any = {
       __metadata: { type: 'SP.Field' },
       Title: name,
@@ -264,10 +263,6 @@ export class ConfigurationService {
     if (defaultValue !== undefined) {
       payload.DefaultValue = String(defaultValue);
     }
-    if (displayFormat !== undefined) {
-      payload.DisplayFormat = displayFormat;
-    }
-
     return {
       internalName: name,
       type: type,
