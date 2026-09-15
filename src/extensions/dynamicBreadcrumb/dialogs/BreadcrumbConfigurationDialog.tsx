@@ -61,6 +61,7 @@ export class BreadcrumbConfigurationDialog extends React.Component<
       <Dialog
         hidden={ this.props.hidden }
         onDismiss={ this.props.onDismiss }
+        containerClassName={ styles.dialogMain }
         modalProps={ { isBlocking: this.state.busy } }
         dialogContentProps={ {
           type: DialogType.normal,

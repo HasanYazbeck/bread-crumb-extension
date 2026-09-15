@@ -3,7 +3,7 @@
   "solution": {
     "name": "breadcrumb-extension-client-side-solution",
     "id": "ebef1ee9-d4ff-4044-9ee1-a41e395b4347",
-    "version": "1.0.0.0",
+    "version": "1.0.0.1",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "features": [

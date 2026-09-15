@@ -212,7 +212,10 @@ export class ConfigurationService {
             }
           });
           if (!exists) {
-            operation = operation.then(() => this._post(this._listUrl(list.Id) + '/fields', definition.payload));
+            operation = operation.then(() => this._post(this._listUrl(list.Id) + '/fields', definition.payload)
+              .catch((error: Error) => {
+                throw new Error('Unable to create the "' + definition.internalName + '" field: ' + error.message);
+              }));
           }
         });
 
@@ -231,70 +234,44 @@ export class ConfigurationService {
     return [
       this._textField('TitleEN'),
       this._textField('TitleAR'),
-      {
-        internalName: 'Url',
-        type: 'URL',
-        payload: {
-          __metadata: { type: 'SP.FieldUrl' },
-          Title: 'Url',
-          StaticName: 'Url',
-          DisplayFormat: 0
-        }
-      },
-      {
-        internalName: 'ParentId',
-        type: 'Number',
-        payload: {
-          __metadata: { type: 'SP.FieldNumber' },
-          Title: 'ParentId',
-          StaticName: 'ParentId',
-          MinimumValue: 0
-        }
-      },
-      {
-        internalName: 'DisplayOrder',
-        type: 'Number',
-        payload: {
-          __metadata: { type: 'SP.FieldNumber' },
-          Title: 'DisplayOrder',
-          StaticName: 'DisplayOrder',
-          DefaultValue: '0'
-        }
-      },
-      {
-        internalName: 'IsActive',
-        type: 'Boolean',
-        payload: {
-          __metadata: { type: 'SP.FieldBoolean' },
-          Title: 'IsActive',
-          StaticName: 'IsActive',
-          DefaultValue: '1'
-        }
-      },
-      {
-        internalName: 'OpenInNewTab',
-        type: 'Boolean',
-        payload: {
-          __metadata: { type: 'SP.FieldBoolean' },
-          Title: 'OpenInNewTab',
-          StaticName: 'OpenInNewTab',
-          DefaultValue: '0'
-        }
-      },
+      this._field('Url', 'URL', 11, undefined, 0),
+      this._field('ParentId', 'Number', 9, 0),
+      this._field('DisplayOrder', 'Number', 9, '0'),
+      this._field('IsActive', 'Boolean', 8, '1'),
+      this._field('OpenInNewTab', 'Boolean', 8, '0'),
       this._textField('Icon')
     ];
   }
 
   private _textField(name: string): IFieldDefinition {
+    return this._field(name, 'Text', 2);
+  }
+
+  /** Uses SharePoint's documented generic field endpoint and FieldTypeKind values. */
+  private _field(
+    name: string,
+    type: string,
+    fieldTypeKind: number,
+    defaultValue?: string | number,
+    displayFormat?: number): IFieldDefinition {
+    const payload: any = {
+      __metadata: { type: 'SP.Field' },
+      Title: name,
+      StaticName: name,
+      FieldTypeKind: fieldTypeKind
+    };
+
+    if (defaultValue !== undefined) {
+      payload.DefaultValue = String(defaultValue);
+    }
+    if (displayFormat !== undefined) {
+      payload.DisplayFormat = displayFormat;
+    }
+
     return {
       internalName: name,
-      type: 'Text',
-      payload: {
-        __metadata: { type: 'SP.FieldText' },
-        Title: name,
-        StaticName: name,
-        MaxLength: 255
-      }
+      type: type,
+      payload: payload
     };
   }
 
@@ -329,7 +306,10 @@ export class ConfigurationService {
   private _post(url: string, body: any, method?: string): Promise<void> {
     const headers: Headers = new Headers();
     headers.append('Accept', 'application/json;odata=verbose');
-    headers.append('Content-Type', 'application/json;odata=verbose');
+    headers.append('Content-Type', 'application/json;odata=verbose;charset=utf-8');
+    // SPHttpClient v1 defaults to OData v4. SharePoint SE list/field provisioning
+    // expects the v3 verbose payload shape used below (__metadata: { type: ... }).
+    headers.append('OData-Version', '3.0');
     if (method) {
       headers.append('IF-MATCH', '*');
       headers.append('X-HTTP-Method', method);
