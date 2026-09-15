@@ -4,7 +4,7 @@ An SPFx Application Customizer for SharePoint Server Subscription Edition (SE). 
 
 ## Demo
 
-![Dynamic Breadcrumb preview](./assets/breadcrumb-demo.png)
+![Dynamic Breadcrumb preview](./assets/breadcrumb.png)
 
 ## Architecture
 
