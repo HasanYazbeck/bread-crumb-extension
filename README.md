@@ -2,6 +2,10 @@
 
 An SPFx Application Customizer for SharePoint Server Subscription Edition (SE). It places a configurable, list-driven breadcrumb in the modern page `Top` placeholder, so the experience is available site-wide rather than being added to individual pages.
 
+## Demo
+
+![Dynamic Breadcrumb preview](./assets/breadcrumb-demo.png)
+
 ## Architecture
 
 ```text
@@ -25,13 +29,13 @@ The customizer uses only SPFx `SPHttpClient`, `PageContext`, placeholders, and S
 
 This project intentionally targets the broad SPSE baseline already present in the solution:
 
-| Component | Version |
-| --- | --- |
-| SPFx | 1.4.1 |
-| Node.js | 8.17.0 (tested) |
-| TypeScript | 2.4.2 |
-| React / ReactDOM | 15.6.2 |
-| Office UI Fabric React (Fluent UI predecessor) | 5.21.0 |
+| Component                                      | Version         |
+| ---------------------------------------------- | --------------- |
+| SPFx                                           | 1.4.1           |
+| Node.js                                        | 8.17.0 (tested) |
+| TypeScript                                     | 2.4.2           |
+| React / ReactDOM                               | 15.6.2          |
+| Office UI Fabric React (Fluent UI predecessor) | 5.21.0          |
 
 SPFx 1.4.1 works on early SharePoint SE farms; farms patched to the SE 23H1 feature update can also support SPFx 1.5.1. Do not move this package to a newer SPFx version unless the target farm explicitly supports it—the server and package versions must match.
 
@@ -49,17 +53,17 @@ The persisted configuration is in **Breadcrumb Configuration** (change the `conf
 
 ### Navigation list schema
 
-| Internal name | Type | Purpose |
-| --- | --- | --- |
-| `Title` | Single line of text | Fallback label |
-| `TitleEN` | Single line of text | English label |
-| `TitleAR` | Single line of text | Arabic label |
-| `Url` | Hyperlink | Destination and URL matching key |
-| `ParentId` | Number | Parent item ID; blank for a root node |
-| `DisplayOrder` | Number | Sort order among siblings |
-| `IsActive` | Yes/No | Includes/excludes the item |
-| `OpenInNewTab` | Yes/No | Adds `_blank` with safe `rel` attributes |
-| `Icon` | Single line of text | Optional Office UI Fabric icon name |
+| Internal name  | Type                | Purpose                                  |
+| -------------- | ------------------- | ---------------------------------------- |
+| `Title`        | Single line of text | Fallback label                           |
+| `TitleEN`      | Single line of text | English label                            |
+| `TitleAR`      | Single line of text | Arabic label                             |
+| `Url`          | Hyperlink           | Destination and URL matching key         |
+| `ParentId`     | Number              | Parent item ID; blank for a root node    |
+| `DisplayOrder` | Number              | Sort order among siblings                |
+| `IsActive`     | Yes/No              | Includes/excludes the item               |
+| `OpenInNewTab` | Yes/No              | Adds `_blank` with safe `rel` attributes |
+| `Icon`         | Single line of text | Optional Office UI Fabric icon name      |
 
 Create a root item such as Home, then point each child `ParentId` to its parent record. The current page is selected by the longest matching active `Url`, then the component walks back through its parents. This avoids hardcoded navigation and detects parent loops safely.
 
