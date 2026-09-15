@@ -52,6 +52,7 @@ export class DynamicBreadcrumb extends React.Component<IDynamicBreadcrumbProps, 
           key={ 'item-' + items[itemIndex].id }
           item={ items[itemIndex] }
           isCurrent={ itemIndex === items.length - 1 }
+          isRoot={ itemIndex === 0 }
           locale={ this.props.locale } />
       );
     });

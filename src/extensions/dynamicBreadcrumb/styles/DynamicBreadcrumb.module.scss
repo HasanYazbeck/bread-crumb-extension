@@ -9,16 +9,16 @@
 
 .root {
   align-items: center;
-  // background-color: "[theme:neutralLighter, default: #f8f9fa]";
-  // border: 1px solid "[theme:neutralLight, default: #e1dfdd]";
-  // border-radius: 6px;
-  // box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+  background-color: "[theme:white, default: #ffffff]";
+  border: 1px solid "[theme:neutralLighter, default: #edebe9]";
+  border-radius: 20px;
   box-sizing: border-box;
   color: "[theme:neutralPrimary, default: #323130]";
   display: flex;
-  margin: 8px 16px;
-  min-height: 42px;
-  padding: 4px 8px 4px 14px;
+  margin: 14px 20px;
+  min-height: 76px;
+  padding: 10px 16px;
+  box-shadow: 0 12px 28px rgba(50, 49, 48, .10);
 }
 
 .list {
@@ -37,36 +37,38 @@
 .overflow {
   align-items: center;
   display: inline-flex;
-  line-height: 32px;
+  line-height: 1.2;
   margin: 0;
 }
 
 .item {
-  max-width: 20rem;
+  max-width: 24rem;
   min-width: 0;
 }
 
 .link,
 .currentItem {
   align-items: center;
-  border-radius: 3px;
+  border-radius: 10px;
   box-sizing: border-box;
   display: inline-flex;
-  font-size: 14px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
   max-width: 100%;
   min-width: 0;
-  padding: 0 5px;
+  padding: 8px 10px;
   text-decoration: none;
 }
 
 .link {
-  color: "[theme:themePrimary, default: #0078d4]";
+  color: "[theme:neutralPrimary, default: #323130]";
 }
 
 .link:hover {
   background-color: "[theme:themeLighterAlt, default: #eff6fc]";
   color: "[theme:themeDarker, default: #004578]";
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .link:focus,
@@ -76,8 +78,8 @@
 }
 
 .currentItem {
-  color: "[theme:neutralPrimary, default: #323130]";
-  font-weight: 600;
+  color: "[theme:themePrimary, default: #0078d4]";
+  font-weight: 700;
 }
 
 .link span,
@@ -90,14 +92,42 @@
 .itemIcon {
   color: "[theme:themePrimary, default: #0078d4]";
   flex: 0 0 auto;
-  font-size: 14px;
-  margin: 0 6px 0 2px;
+  font-size: 18px;
+  margin: 0 8px 0 0;
+}
+
+.homeBadge {
+  align-items: center;
+  background-color: "[theme:themePrimary, default: #0078d4]";
+  border-radius: 50%;
+  box-shadow: 0 6px 14px rgba(0, 120, 212, .20);
+  color: "[theme:white, default: #ffffff]";
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 52px;
+  justify-content: center;
+  margin: 0 14px 0 0;
+  width: 52px;
+}
+
+.homeIcon {
+  color: "[theme:white, default: #ffffff]";
+  font-size: 27px;
+}
+
+.host[dir='rtl'] .homeBadge {
+  margin: 0 0 0 14px;
+}
+
+.host[dir='rtl'] .itemIcon {
+  margin: 0 0 0 8px;
 }
 
 .separator {
-  color: "[theme:neutralTertiary, default: #a19f9d]";
-  font-size: 12px;
-  padding: 0 2px;
+  color: "[theme:neutralTertiaryAlt, default: #c8c6c4]";
+  flex: 0 0 auto;
+  font-size: 25px;
+  padding: 0 6px;
 }
 
 .overflow {
@@ -105,9 +135,11 @@
 }
 
 .configureButton {
+  background-color: "[theme:neutralLighterAlt, default: #faf9f8]";
+  border-radius: 50%;
   color: "[theme:neutralSecondary, default: #605e5c]";
   flex: 0 0 auto;
-  margin: 0 0 0 4px;
+  margin: 0 2px 0 10px;
 }
 
 .setupTools {
@@ -171,16 +203,38 @@
 @media screen and (max-width: 640px) {
   .root {
     margin: 6px 8px;
-    padding-left: 6px;
+    min-height: 58px;
+    border-radius: 14px;
+    padding: 7px 8px;
   }
 
   .item {
-    max-width: 8.5rem;
+    max-width: 9rem;
   }
 
   .link,
   .currentItem {
-    font-size: 13px;
+    font-size: 16px;
+    padding: 6px 5px;
+  }
+
+  .homeBadge {
+    height: 38px;
+    margin-right: 8px;
+    width: 38px;
+  }
+
+  .homeIcon {
+    font-size: 20px;
+  }
+
+  .host[dir='rtl'] .homeBadge {
+    margin-left: 8px;
+  }
+
+  .separator {
+    font-size: 19px;
+    padding: 0 2px;
   }
 
   .configurationDialog {
